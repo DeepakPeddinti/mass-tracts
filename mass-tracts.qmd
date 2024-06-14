@@ -6,8 +6,8 @@ execute:
   echo: FALSE
 ---
 ```{r}
-#|message: FALSE
-#|label: setup 
+#| message: FALSE
+#| label: setup 
 
 library(tidyverse)
 ```
@@ -15,11 +15,20 @@ library(tidyverse)
 ```{r}
 #| label: reading
 
-x<-read_csv(file="data/mass-tracts.csv", show_col_types = FALSE)
+x <- read_csv(file="data/mass-tracts.csv", show_col_types = FALSE)
 ```
 
 ```{r}
 #| label: plot
-x |> ggplot(aes(x=med_income))+geom_density(alpha=0.5, aes(fill = race))+theme_minimal() + scale_x_continuous(labels+scales::dollars_format())
+x |> drop_na() |>ggplot(aes(x=med_income))+ 
+  geom_density(alpha=0.5, aes(fill = race), adjust = 2)+ 
+  theme_minimal() + 
+  scale_x_continuous(labels=scales::dollar_format())+
+  scale_y_continuous(labels=NULL)+
+    labs(title = "Median Income for Massachusetts Census Tracts",
+       subtitle = "The richest tracts are white",
+       x = "Median Income",
+       fill = "Race",
+       y = "")
 ```
 
