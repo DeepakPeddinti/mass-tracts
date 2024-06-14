@@ -1,0 +1,25 @@
+---
+title: "Mass Tracts"
+author: "Deepak Peddinti"
+format: html
+execute:
+  echo: FALSE
+---
+```{r}
+#|message: FALSE
+#|label: setup 
+
+library(tidyverse)
+```
+
+```{r}
+#| label: reading
+
+x<-read_csv(file="data/mass-tracts.csv", show_col_types = FALSE)
+```
+
+```{r}
+#| label: plot
+x |> ggplot(aes(x=med_income))+geom_density(alpha=0.5, aes(fill = race))+theme_minimal() + scale_x_continuous(labels+scales::dollars_format())
+```
+
